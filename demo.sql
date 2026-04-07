@@ -5,25 +5,25 @@
 CREATE OR REPLACE FUNCTION cyphera_protect(policy_name VARCHAR, value VARCHAR)
 RETURNS VARCHAR
 LANGUAGE JAVA
-HANDLER = 'dev.cyphera.snowflake.CypheraUDF.cyphera_protect'
+HANDLER = 'io.cyphera.snowflake.CypheraUDF.cyphera_protect'
 IMPORTS = ('@cyphera_stage/cyphera-snowflake-0.1.0.jar');
 
 CREATE OR REPLACE FUNCTION cyphera_unprotect(policy_name VARCHAR, value VARCHAR)
 RETURNS VARCHAR
 LANGUAGE JAVA
-HANDLER = 'dev.cyphera.snowflake.CypheraUDF.cyphera_unprotect'
+HANDLER = 'io.cyphera.snowflake.CypheraUDF.cyphera_unprotect'
 IMPORTS = ('@cyphera_stage/cyphera-snowflake-0.1.0.jar');
 
 CREATE OR REPLACE FUNCTION cyphera_ff1_encrypt(value VARCHAR, key_hex VARCHAR, alphabet VARCHAR)
 RETURNS VARCHAR
 LANGUAGE JAVA
-HANDLER = 'dev.cyphera.snowflake.CypheraUDF.cyphera_ff1_encrypt'
+HANDLER = 'io.cyphera.snowflake.CypheraUDF.cyphera_ff1_encrypt'
 IMPORTS = ('@cyphera_stage/cyphera-snowflake-0.1.0.jar');
 
 CREATE OR REPLACE FUNCTION cyphera_ff1_decrypt(value VARCHAR, key_hex VARCHAR, alphabet VARCHAR)
 RETURNS VARCHAR
 LANGUAGE JAVA
-HANDLER = 'dev.cyphera.snowflake.CypheraUDF.cyphera_ff1_decrypt'
+HANDLER = 'io.cyphera.snowflake.CypheraUDF.cyphera_ff1_decrypt'
 IMPORTS = ('@cyphera_stage/cyphera-snowflake-0.1.0.jar');
 
 -- Test queries
