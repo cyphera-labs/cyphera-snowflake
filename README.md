@@ -1,6 +1,7 @@
 # cyphera-snowflake
 
 [![CI](https://github.com/cyphera-labs/cyphera-snowflake/actions/workflows/ci.yml/badge.svg)](https://github.com/cyphera-labs/cyphera-snowflake/actions/workflows/ci.yml)
+[![Security](https://github.com/cyphera-labs/cyphera-snowflake/actions/workflows/codeql.yml/badge.svg)](https://github.com/cyphera-labs/cyphera-snowflake/actions/workflows/codeql.yml)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
 
 Format-preserving encryption for [Snowflake](https://www.snowflake.com/) — Java UDF powered by Cyphera.
