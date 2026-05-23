@@ -14,8 +14,8 @@ public final class CypheraUDF {
 
     private static final Cyphera CLIENT = CypheraLoader.getInstance();
 
-    public static String cyphera_protect(String policyName, String value) {
-        try { return CLIENT.protect(value, policyName); }
+    public static String cyphera_protect(String configurationName, String value) {
+        try { return CLIENT.protect(value, configurationName); }
         catch (Exception e) { return "[error: " + e.getMessage() + "]"; }
     }
 
@@ -24,8 +24,8 @@ public final class CypheraUDF {
         catch (Exception e) { return "[error: " + e.getMessage() + "]"; }
     }
 
-    public static String cyphera_access(String policyName, String protectedValue) {
-        try { return CLIENT.access(protectedValue, policyName); }
+    public static String cyphera_access(String configurationName, String protectedValue) {
+        try { return CLIENT.access(protectedValue, configurationName); }
         catch (Exception e) { return "[error: " + e.getMessage() + "]"; }
     }
 }

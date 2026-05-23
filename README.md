@@ -38,7 +38,7 @@ PUT file://target/cyphera-snowflake-0.1.0.jar @cyphera_stage AUTO_COMPRESS=FALSE
 ### 2. Register the functions
 
 ```sql
-CREATE OR REPLACE FUNCTION cyphera_protect(policy_name VARCHAR, value VARCHAR)
+CREATE OR REPLACE FUNCTION cyphera_protect(configuration_name VARCHAR, value VARCHAR)
 RETURNS VARCHAR
 LANGUAGE JAVA
 HANDLER = 'io.cyphera.snowflake.CypheraUDF.cyphera_protect'
@@ -53,18 +53,18 @@ IMPORTS = ('@cyphera_stage/cyphera-snowflake-0.1.0.jar');
 
 See `demo.sql` for the full registration script.
 
-### 3. Policy configuration
+### 3. Configuration
 
-Snowflake Java UDFs don't have filesystem access. Set the policy via the `CYPHERA_POLICY_FILE` environment variable or bundle `cyphera.json` inside the JAR at build time.
+Snowflake Java UDFs don't have filesystem access. Set the configuration via the `CYPHERA_CONFIGURATION_FILE` environment variable or bundle `cyphera.json` inside the JAR at build time.
 
 ## Usage
 
 ```sql
--- Protect with a named policy
+-- Protect with a named configuration
 SELECT cyphera_protect('ssn', '123-45-6789');
--- → 'T01i6J-xF-07pX' (tagged, dashes preserved)
+-- → 'T01i6J-xF-07pX' (header-prefixed, dashes preserved)
 
--- Access — tag tells Cyphera which policy to use
+-- Access — the embedded header tells Cyphera which configuration to use
 SELECT cyphera_access(cyphera_protect('ssn', '123-45-6789'));
 -- → '123-45-6789'
 
@@ -75,10 +75,10 @@ FROM customers;
 
 ## Operations
 
-### Policy Configuration
+### Configuration
 
-- Policy file bundled in JAR or accessible via `CYPHERA_POLICY_FILE`
-- Policy changes require re-uploading the JAR and re-registering functions
+- Configuration file bundled in JAR or accessible via `CYPHERA_CONFIGURATION_FILE`
+- Configuration changes require re-uploading the JAR and re-registering functions
 
 ### Monitoring
 
@@ -94,16 +94,16 @@ FROM customers;
 ### Troubleshooting
 
 - **Function not found** — JAR not uploaded or function not registered. Run `demo.sql`.
-- **"Unknown policy"** — cyphera.json not accessible from the UDF runtime
+- **"Unknown configuration"** — cyphera.json not accessible from the UDF runtime
 - **Upload fails** — check that the stage exists and you have write permissions
 
-## Policy File
+## Configuration File
 
 ```json
 {
-  "policies": {
-    "ssn": { "engine": "ff1", "key_ref": "demo-key", "tag": "T01" },
-    "credit_card": { "engine": "ff1", "key_ref": "demo-key", "tag": "T02" }
+  "configurations": {
+    "ssn": { "engine": "ff1", "key_ref": "demo-key", "header": "T01" },
+    "credit_card": { "engine": "ff1", "key_ref": "demo-key", "header": "T02" }
   },
   "keys": {
     "demo-key": { "material": "2B7E151628AED2A6ABF7158809CF4F3C" }
